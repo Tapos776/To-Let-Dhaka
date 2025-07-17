@@ -5,7 +5,7 @@ import Footer from '../Footer/Footer';
 
 const Root = () => {
     return (
-        <div>
+        <div className='max-w-10/12 mx-auto justify-center'>
             <Header></Header>
             <Outlet></Outlet>
             <Footer></Footer>
