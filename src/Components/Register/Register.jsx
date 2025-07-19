@@ -1,10 +1,32 @@
-import React from 'react';
+
+
+import { useContext } from 'react';
 import { Link } from 'react-router';
+import { AuthContext } from '../../Private/AuthProvider';
+
 
 const Register = () => {
+    const {registerUser}=useContext(AuthContext)
+
+    const handelUserRegisters =(e)=>{
+        e.preventDefault()
+        const name=e.target.name.value;
+        const email = e.target.email.value;
+        const photo = e.target.photo.value;
+        const password =e.target.password.value;
+        console.log(name,email,photo,password);
+        registerUser(email,password)
+        .then((data)=>{
+            console.log(data.user);
+            
+        })
+        .catch(error=>{console.log(error.message);
+        })
+     
+    }
     return (
         <div className="hero bg-sky-200 ">
-            <form >
+            <form onSubmit={handelUserRegisters} >
                 <div className="hero-content flex-col lg:flex-row-reverse">
                     <div className="text-center lg:text-left">
                         <h1 className="text-5xl font-bold text-sky-700" >Register now!</h1>                      

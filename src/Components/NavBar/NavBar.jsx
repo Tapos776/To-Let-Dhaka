@@ -1,14 +1,30 @@
-import React from 'react';
-import { NavLink } from 'react-router';
+import React, { useContext  } from 'react';
+import { Link, Links, NavLink } from 'react-router';
 import "../Style/Style.css"
+import { AuthContext } from '../../Private/AuthProvider';
 
 const NavBar = () => {
+    const {userLogOut,user}= useContext(AuthContext)
+    
+    console.log(user);
+    
     const navLink = <>
         <li><NavLink className={"text-xl bg-sky-500 mx-1 font-black text-blue-900"} to={"/"}>Home</NavLink></li>
         <li><NavLink className={"text-xl bg-sky-500 mx-1 font-black text-blue-900"} to={"/about"}>About</NavLink></li>
         <li><NavLink className={"text-xl bg-sky-500 mx-1 font-black text-blue-900"} to={"/login"}>Login</NavLink></li>
         <li><NavLink className={"text-xl bg-sky-500 mx-1 font-black text-blue-900"} to={"/register"}>Register</NavLink></li>
     </>
+
+    const logOutUser =()=>{
+        userLogOut()
+        .then(data=>{
+            console.log(data.user);
+            
+            
+        })
+        .then(error=>{console.log(error.message);
+        })
+    }
     return (
         <div>
             <div className="navbar bg-sky-400 shadow-sm">
@@ -36,7 +52,9 @@ const NavBar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <a className="btn btn-error">Logout</a>
+                    {
+                       user ? <> <h1>{user.email}</h1> <a onClick={logOutUser} className="btn btn-error">Logout</a>  </> : <> <Link className="btn btn-error" to={"/login"}>Sign In</Link>  </>
+                    }
                 </div>
             </div>
         </div>
